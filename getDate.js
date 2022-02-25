@@ -17,4 +17,4 @@ function getDate() {
 };
 
 
-module.exports = getDate;
+export { getDate };

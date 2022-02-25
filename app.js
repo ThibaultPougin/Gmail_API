@@ -1,7 +1,16 @@
-require("dotenv").config();
-const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
-const getDate = require('./getDate');
+import dotenv from "dotenv";
+import nodemailer from "nodemailer";
+import { google } from "googleapis";
+import { getDate } from './getDate.js';
+import { getWeather } from './getWeather.js';
+
+dotenv.config();
+
+// const weather = getWeather().then(result =>{
+//   return result;
+// });
+
+let weather = await getWeather();
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -37,7 +46,7 @@ const mailOptions = {
   from: 'API MFA <api-mfa@geoplc.com>',
   to: 'tpougin@geoplc.com',
   subject: `Ceci est un test d'utilisation de l'API Gmail`,
-  text: getDate(),
+  text: getDate() + ' ' + weather,
   attachments: [{
     filename: 'test.txt',
     content: 'Hello World !'
